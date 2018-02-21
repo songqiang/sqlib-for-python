@@ -169,7 +169,8 @@ def pdcompare(df1, df2, keys = None):
 
     merged = merged[merged._merge.eq('both')]
 
-    num_cols = set(df1.select_dtypes(include = [np.number]).columns).intersection(set(cols.loc[cols._merge.eq('both'), 'col']))
+    num_cols = set(df1.select_dtypes(include = [np.number]).columns) \
+                .intersection(set(cols.loc[cols._merge.eq('both'), 'col']))
     if keys is not None:
         num_cols = num_cols.difference(set(keys))
 
@@ -199,7 +200,8 @@ def pdcompare(df1, df2, keys = None):
         pprint(diff_df_num.transpose())
 
 
-    cat_cols = set(df1.select_dtypes(exclude = [np.number]).columns).intersection(set(cols.loc[cols._merge.eq('both'), 'col']))
+    cat_cols = set(df1.select_dtypes(exclude = [np.number]).columns) \
+                .intersection(set(cols.loc[cols._merge.eq('both'), 'col']))
     if keys is not None:
         cat_cols = cat_cols.difference(set(keys))
 
