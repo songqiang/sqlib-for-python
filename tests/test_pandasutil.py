@@ -18,5 +18,9 @@ class Test(unittest.TestCase):
         pdcompare(df1, df2)
         pdcompare(df1, df2, ['k'])
 
+    # def test_decr_read_csv(self):
+    #     df = read_csv('~/tmp/t.csv')
+    #     print(df)
+
 if __name__ == '__main__':
     unittest.main()

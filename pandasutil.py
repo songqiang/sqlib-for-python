@@ -2,9 +2,14 @@
 """ Utilties for working with Pandas
 Song Qiang <keeyang@ustc.edu> 2017
 """
+import logging
+logging.basicConfig(format='%(asctime)s %(levelname)s: %(message)s', level=logging.INFO)
+logger = logging.getLogger(__name__)
+
 
 from collections import  deque
 from pprint import pprint
+import functools
 
 from pandas import crosstab
 import pandas as pd
@@ -219,3 +224,13 @@ def pdcompare(df1, df2, keys = None):
         pprint(diff_df_cat.transpose())
 
     return diff_df_num, diff_df_cat
+
+def _decr_read_csv(f):
+    @functools.wraps(f)
+    def decorated(*args, **kwargs):
+        logger.info('reading file {}'.format(args[0]))
+        df = f(*args, **kwargs)
+        logger.info('dataframe has {} rows and {} columns'.format(*df.shape))
+        return df
+    return decorated
+read_csv = _decr_read_csv(pd.read_csv)
