@@ -12,6 +12,17 @@ from IPython.core.magic import (line_magic,
 
 @magics_class
 class TimeStamp(Magics):
+    '''the %%timestamp cell magic print out the starting time, finishing time and
+    the job duration when running the cell
+
+    It is similar to the jupyter notebook extension ExecuteTime, but add the
+    timestamp directly to cell output instead of cell metadata so the
+    information is visible with vanilla jupyter installation
+
+    %%exectime and %%ts are two alias for the %%timestamp alias
+
+    To enable these cell magics, simple add 'import ipython_magics' in your jupyter notebook
+    '''
     @staticmethod
     def strftime_timedelta(td, fmt = '%H:%M:%S.%f'):
         days = td.days
