@@ -362,3 +362,24 @@ def summary(df, outfile="summary.csv"):
             results.append(r)
 
         return results
+
+
+def filter_columns(df, keep=None, drop=None):
+    import re
+
+    if isinstance(keep, str):
+        keep = [keep]
+    if isinstance(drop, str):
+        drop = [drop]
+
+    keep_pattern = "({})".format("|".join(keep if keep else ["__NOMATCHPATTERN__"]))
+    drop_pattern = "({})".format("|".join(drop if drop else ["__NOMATCHPATTERN__"]))
+
+    final_list = []
+    for col in df.columns:
+        if re.match(keep_pattern, col):
+            final_list.append(col)
+        elif keep is None and not re.match(drop_pattern, col):
+            final_list.append(col)
+
+    return df[final_list]
